@@ -21,13 +21,16 @@ def get_model():
 
 def show_compare(it):
     test_df['pred'] = model.predict(test_df['X'])
-    plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(10, 6))
     ax = plt.subplot()
     ax.scatter(train_df['X'], train_df['y'], color="red")
     ax.scatter(test_df['X'], test_df['pred'], color="purple")
+    # ax.plot(train_df['X'], train_df['y'], color="black")
+    # ax.plot(test_df['X'], test_df['pred'], color="grey")
+
     ax.set_xlabel("X")
     ax.set_ylabel("y")
-    ax.set_xlim([-1, 10])
+    ax.set_xlim([-1, 11])
     ax.set_ylim([-0.1, 2.1])
     ax.tick_params(direction="in", length=10, width=0.8, colors='black')
     ax.spines['top'].set_linewidth(2.0)

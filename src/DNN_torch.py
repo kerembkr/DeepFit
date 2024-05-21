@@ -2,7 +2,6 @@ import torch
 import numpy as np
 from torch import nn
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 
 
 class DNN(nn.Module):
@@ -124,13 +123,19 @@ def plot_fit(X_test_, y_test_, y_pred_, X_train_, y_train_, lossfunc):
 
 
 if __name__ == "__main__":
+
+    # create Neural Network model
     model = DNN()
 
+    # get training and testing data
     X_train, X_test, y_train, y_test = get_data(f)
 
+    # train the model
     loss_hist = train(model, X_train, y_train, epochs=20000)
 
+    # get predictions
     y_pred = predict(X_test)
     y_pred = torch.tensor(y_pred)
 
+    # plot
     plot_fit(X_test, y_test, y_pred, X_train, y_train, loss_hist)

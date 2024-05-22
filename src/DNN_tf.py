@@ -25,9 +25,6 @@ def show_compare(it):
     ax = plt.subplot()
     ax.scatter(train_df['X'], train_df['y'], color="red")
     ax.scatter(test_df['X'], test_df['pred'], color="purple")
-    # ax.plot(train_df['X'], train_df['y'], color="black")
-    # ax.plot(test_df['X'], test_df['pred'], color="grey")
-
     ax.set_xlabel("X")
     ax.set_ylabel("y")
     ax.set_xlim([-1, 11])

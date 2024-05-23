@@ -1,7 +1,7 @@
 import keras
 import matplotlib.pyplot as plt
-from input.func1 import data
-from utils import create_gif_and_cleanup
+from input.func import f1, f2
+from utils import create_gif_and_cleanup, data_from_func
 
 
 class DNN(keras.Model):
@@ -46,17 +46,24 @@ class DNN(keras.Model):
         test_df['pred'] = self.predict(self.X_test)
         plt.figure(figsize=(10, 6))
         ax = plt.subplot()
-        ax.scatter(self.X_train, self.y_train, color="red")
-        ax.scatter(self.X_test, test_df['pred'], color="purple")
-        ax.set_xlabel("X")
-        ax.set_ylabel("y")
+        ax.scatter(self.X_train, self.y_train, color="firebrick", s=2.0)
+        ax.scatter(self.X_test, test_df['pred'], color="mediumpurple")
+        ax.set_xlabel("X", fontsize=20)
+        ax.set_ylabel("y", fontsize=20)
+
+        # CHANGE
         ax.set_xlim([-1, 11])
         ax.set_ylim([-0.1, 2.1])
+
         ax.tick_params(direction="in", length=10, width=0.8, colors='black')
-        ax.spines['top'].set_linewidth(2.0)
-        ax.spines['bottom'].set_linewidth(2.0)
-        ax.spines['left'].set_linewidth(2.0)
-        ax.spines['right'].set_linewidth(2.0)
+        ax.spines['top'].set_linewidth(3.0)
+        ax.spines['bottom'].set_linewidth(3.0)
+        ax.spines['left'].set_linewidth(3.0)
+        ax.spines['right'].set_linewidth(3.0)
+        ax.xaxis.set_ticks([])
+        ax.yaxis.set_ticks([])
+        ax.xaxis.set_ticklabels([])
+        ax.yaxis.set_ticklabels([])
         plt.savefig('../output/img_' + str(it) + '.png')
         plt.close()
 
@@ -68,11 +75,14 @@ class DNN(keras.Model):
 
 if __name__ == "__main__":
 
+    # choose function
+    f = f2
+
     # load data
-    train_df, test_df = data()
+    train_df, test_df = data_from_func(f)
 
     # plot training data
-    plt.scatter(train_df['X'], train_df['y'])
+    plt.plot(train_df['X'], train_df['y'])
 
     # create Neural Network
     model = DNN()
@@ -84,7 +94,7 @@ if __name__ == "__main__":
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.00001), loss='mean_squared_error')
 
     # curve fitting
-    model.fit_curve(n=10, x=train_df['X'], y=train_df['y'])
+    model.fit_curve(n=3, x=train_df['X'], y=train_df['y'])
 
     # create animation and delete png-files
     create_gif_and_cleanup('../output/animation.gif', duration=50)

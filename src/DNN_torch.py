@@ -42,14 +42,14 @@ def get_data(func):
     xmin = 0.0
     xmax = 10.0
 
-    # training data
+    # training input
     N_train = 500
     noise = 1e0
     np.random.seed(42)
     X_train_ = torch.rand(N_train) * (xmax - xmin) + xmin
     y_train_ = func(X_train_) + torch.rand(N_train) * 2 * noise - noise
 
-    # testing data
+    # testing input
     N_test = 100
     X_test_ = torch.linspace(xmin, xmax, N_test)
     y_test_ = func(X_test_)
@@ -127,7 +127,7 @@ if __name__ == "__main__":
     # create Neural Network model
     model = DNN()
 
-    # get training and testing data
+    # get training and testing input
     X_train, X_test, y_train, y_test = get_data(f)
 
     # train the model

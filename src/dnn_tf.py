@@ -50,13 +50,8 @@ class DNN(keras.Model):
         ax.scatter(self.X_test, test_df['pred'], color="mediumpurple")
         ax.set_xlabel("X", fontsize=20)
         ax.set_ylabel("y", fontsize=20)
-
-        # CHANGE
-        # ax.set_xlim([-1, 11])
-        # ax.set_ylim([-0.1, 2.1])
         ax.set_xlim([min(self.X_train), max(self.X_train)])
         ax.set_ylim([min(self.y_train), max(self.y_train)])
-
         ax.tick_params(direction="in", length=10, width=0.8, colors='black')
         ax.spines['top'].set_linewidth(3.0)
         ax.spines['bottom'].set_linewidth(3.0)
@@ -96,7 +91,7 @@ if __name__ == "__main__":
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.00001), loss='mean_squared_error')
 
     # curve fitting
-    model.fit_curve(n=200, x=train_df['X'], y=train_df['y'])
+    model.fit_curve(n=150, x=train_df['X'], y=train_df['y'])
 
     # create animation and delete png-files
     create_gif_and_cleanup('../output/animation.gif', duration=50)
